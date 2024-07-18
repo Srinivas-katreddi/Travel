@@ -10,10 +10,6 @@
             margin: 0;
             padding: 0;
             text-align: center;
-            background-image: url('T1.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -24,22 +20,18 @@
             background-repeat: no-repeat;
             background-size: 40%;
             background-position: left 50px top 50px;
-           
             flex-direction: column;
             align-items: center;
             width: 100%;
             padding-top: 80px;
             flex: 1;
         }
-        
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
             padding: 10px 20px;
-           
-           
             position: fixed;
             color: rgb(255, 255, 255);
             top: 0;
@@ -66,8 +58,8 @@
             margin: 0;
             flex: 1;
             text-align: center;
-            margin-top: 30%;
-            font-size: 340%;
+            margin-top: 18%;
+            font-size: 450%;
         }
         h2 {
             font-size: 30px;
@@ -76,23 +68,15 @@
         }
         .content {
             display: flex;
-            
             align-items: center;
             width: 100%;
-            
         }
-        
         .container {
             flex: 30%;
-            
-            
             gap: 20px;
-           
-           
         }
-        .web2{
+        .web2 {
             flex: 50%;
-            
         }
         .budget-button {
             padding: 10px 20px;
@@ -121,15 +105,35 @@
             background-color: black;
             opacity: 0.9; 
         }
+        .trip {
+            background-color: #f44336;
+            color: #fffcfc;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 30px;
+            margin: 10px 0;
+            transition: background-color 0.3s;
+            width: 280px;
+            height: 60px;
+        }
+        .h1 {
+            background-image: url('t1.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 180px;            
+            width: 75%;
+        }
         .search-container {
             background-image: url('T2.jpg');
             gap: 10px;
             margin-top: 4%;
             background-repeat: no-repeat;
-            text-align:center;
-           background-position: 1.5px;
-           background-size: cover;
-            padding: 280px ;
+            text-align: center;
+            background-position: 1.5px;
+            background-size: cover;
+            padding: 280px;
             color: #fffcfc;
             margin-top: 7%;
         }
@@ -138,46 +142,46 @@
             width: 200px;
             border: 2px solid #000;
             border-radius: 5px;
-            
         }
-        
         .search {
             width: 120px;
             height: 35px;
         }
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
-    <h1>Travel Budget Management</h1>
+    <div class="h1" id="Home">
+        <h1>Travel Budget Management</h1><br>
+        <button class="trip" id="planTripButton">Plan My Trip</button>
+    </div>
+    
     <header>
-        
         <img src="logo1.png" alt="Logo">
-        
         <nav>
-            <a href="#index.html">Home</a>
+            <a href="#Home">Home</a>
             <a href="#contact">Contact</a>
             <a href="#profile">Profile</a>
         </nav>
     </header>
     
-    <div class="main-container">
-        
-        
+    <div class="main-container" id="budgetSection">
         <div class="content">
             <div class="container">
-                <h2 >CHOOSE THE BUDGET FOR YOUR TRAVEL</h2>
+                <h2>CHOOSE THE BUDGET FOR YOUR TRAVEL</h2>
                 <button class="budget-button high" data-budget="high">High Budget</button>
                 <button class="budget-button medium" data-budget="medium">Medium Budget</button>
                 <button class="budget-button low" data-budget="low">Low Budget</button>
             </div>
             <div class="web2">
-                <img src="india.png" width="70%" >
+                <img src="india.png" width="70%">
             </div>
         </div>
     </div>
-    <div class="search-container">
-        <br><br>
-        
+    
+    <div class="search-container" id="searchSection">
         <h2>Enter Your Starting Destination And Ending Destination</h2>
         <input type="text" class="search-input" placeholder="Starting Destination..." />
         <input type="text" class="search-input" placeholder="Final Destination..." />
@@ -185,9 +189,14 @@
     </div>
     
     <script>
+        document.getElementById('planTripButton').addEventListener('click', function() {
+            document.getElementById('budgetSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
         const buttons = document.querySelectorAll('.budget-button');
         buttons.forEach(button => {
             button.addEventListener('click', function() {
+                document.getElementById('searchSection').scrollIntoView({ behavior: 'smooth' });
                 const budget = this.getAttribute('data-budget');
                 alert(`Showing options for ${budget} budget`);
             });
