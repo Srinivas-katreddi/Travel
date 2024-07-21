@@ -13,11 +13,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh;
+            overflow-y: hidden; /* Disable scrolling initially */
         }
         .section {
             display: none; /* Hide all sections by default */
             width: 100%;
+            min-height: 100vh; /* Ensure sections take up full screen height */
+            padding-top: 70px; /* Ensure content is not hidden under the fixed header */
         }
         .active {
             display: block; /* Show the active section */
@@ -122,7 +124,7 @@
             width: 75%;
         }
         .search-container {
-            background-image: url('T2.jpg');
+            background-image: url('T3.webp');
             gap: 5px;
             background-repeat: no-repeat;
             text-align: center;
@@ -147,13 +149,6 @@
     </style>
 </head>
 <body>
-    <div class="section active" id="homeSection">
-        <div class="h1">
-            <h1>Travel Budget Management</h1><br>
-            <button class="trip" id="planTripButton">Plan My Trip</button>
-        </div>
-    </div>
-    
     <header>
         <img src="logo1.png" alt="Logo">
         <nav>
@@ -164,6 +159,13 @@
             <li><a href="profile.html">Profile</a></li>
         </nav>
     </header>
+    
+    <div class="section active" id="homeSection">
+        <div class="h1">
+            <h1>Travel Budget Management</h1><br>
+            <button class="trip" id="planTripButton">Plan My Trip</button>
+        </div>
+    </div>
     
     <div class="section" id="searchSection">
         <div class="search-container">
@@ -191,14 +193,30 @@
     </div>
     
     <script>
+        function disableScrolling() {
+            document.body.style.overflowY = 'hidden';
+        }
+        
+        function enableScrolling() {
+            document.body.style.overflowY = 'auto';
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
         document.getElementById('planTripButton').addEventListener('click', function() {
-            document.getElementById('homeSection').classList.remove('active');
+            document.getElementById('homeSection').classList.add('active');
             document.getElementById('searchSection').classList.add('active');
+            enableScrolling(); // Enable scrolling when search section is active
+            scrollToSection('searchSection'); // Scroll to the search section
         });
 
         document.getElementById('searchButton').addEventListener('click', function() {
-            document.getElementById('searchSection').classList.remove('active');
+            document.getElementById('homeSection').classList.add('active');
+            document.getElementById('searchSection').classList.add('active');
             document.getElementById('budgetSection').classList.add('active');
+            scrollToSection('budgetSection'); // Scroll to the budget section
         });
 
         const budgetButtons = document.querySelectorAll('.budget-button');
@@ -208,6 +226,8 @@
                 alert(`Showing options for ${budget} budget`);
             });
         });
+
+        disableScrolling(); // Disable scrolling initially
     </script>
 </body>
 </html>
